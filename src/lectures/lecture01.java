@@ -69,14 +69,14 @@ package lectures;
 // to represent a book in a bookstore
 class Book {
     String title;
-    Author03 author03;
+    Author author;
     int price;
     Publisher publisher;
 
     // the constructor
-    Book(String title, Author03 author03, int price, Publisher publisher) {
+    Book(String title, Author author, int price, Publisher publisher) {
         this.title = title;
-        this.author03 = author03;
+        this.author = author;
         this.price = price;
         this.publisher = publisher;
     }
@@ -115,8 +115,8 @@ class ExamplesBooks {
     }
 
     Publisher doubleDay = new Publisher("Doubleday", "United States", 1897);
-    Author03 pat = new Author03("Pat Conroy", 1948);
-    Book3 beaches = new Book3("Beaches", this.pat, 20, this.doubleDay);
+    Author pat = new Author("Pat Conroy", 1948);
+    Book beaches = new Book("Beaches", this.pat, 20, this.doubleDay);
 }
 
 /**
