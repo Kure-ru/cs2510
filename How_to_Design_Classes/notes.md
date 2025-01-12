@@ -1,6 +1,6 @@
 # How to Design Classes
-## 1 The Varieties of Data
-### 1.1 Primitive Forms of Data
+## I The Varieties of Data
+### 1 Primitive Forms of Data
 
 `int` 
 - used to represent whole numbers (integers)
@@ -18,7 +18,7 @@
 - represents a sequence of characters
 - enclosed in double quotation marks `""`
 
-## 2 Classes
+### 2 Classes
 In Java, a class is a blueprint or template that defines the structure of objects.
 It specifies the **fields** (attribute) and the **methods** (functions) that objects of that class will have.
 
@@ -50,7 +50,7 @@ class CoffeeExamples {
     Coffee colo = new Coffee("Colombian", 950, 20);
 }
 ```
-## 3 Class References, Object Containment
+### 3 Class References, Object Containment
 
 A class can contain objects of other classes as fields, not just primitive types.
 
@@ -61,7 +61,7 @@ Date d1 = new Date(5, 6, 2003);
 Entry e1 = new Entry(d1, 5.3, 27, "Good");
 ```
 
-## 4 Unions of Classes
+### 4 Unions of Classes
 **Union of classes** refers to a collection of different kinds of objects that are related but not the same. For example, in the case of shapes (like squares, circles, and dots), they are all part of a broader class but have different characteristics.
 
 **Interface** is used to represent a union of related but distinct classes. For instance, `IShape` is an interface that groups all shapes (dots, squares, circles) without contributing any data itself.
@@ -77,7 +77,7 @@ class Square implements IShape { }
 class Circle implements IShape { }
 ```
 
-### 4.1 Types vs Classes
+#### 4.1 Types vs Classes
 
 In Java, a **type** is either the name of an interface, a class, or a primitive type
 (`int`, `double`, `boolean` or `String`).
@@ -87,8 +87,8 @@ In Java, a **type** is either the name of an interface, a class, or a primitive 
 IShape s = new Square(...);
 ```
 
-## 5 Unions, Self-References and Mutual References
-### 5.1 Containment in Unions
+### 5 Unions, Self-References and Mutual References
+#### 5.1 Containment in Unions
 **Containment** refers to the idea of having one object or data structure contain other objects or data structures.
 
 **Self-referential** data structures are those that reference themselves indirectly, such as a list where each element points to the next element, forming a chain. This creates a **circular reference** in the class diagram, where one class refers back to itself through its fields.
@@ -112,4 +112,49 @@ class ConsLog implements ILog {
 class Entry {
     // Fields like date, distance, duration, comment
 }
+```
+
+## II Functional Methods 
+
+### 10 Methods for Classes
+#### 10.4 Conditional Computations
+Methods often need to distinguish between different situations and compute results accordingly. 
+To express **conditional computation**, Java provides **if-statement**, which can distinguish two possibilities.
+```java
+if (condition) {
+    statement1 }
+else {
+    statement2 }
+```
+
+### 11 Methods and Object Containment
+
+Classes can contain fields that are references to other classes, forming a **containment** relationship.
+Methods operate on fields within their class and may delegate tasks to contained objects.
+```java
+// Rectangle.distance0() delegates computation of the distance to CartPt.distance0()
+class Rectangle {
+    ...
+
+    double distance0() {
+        return this.tlCorner.distance0();
+    }
+}
+
+class CartPt {
+    ...
+
+    double distance0() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+}
+```
+
+### 14 Methods and Unions of Classes (Continued)
+#### 14.1 How Libraries Work, Part 1: Drawing Geometric Shapes
+Java provides a `Canva` class (via `draw` library) for rendering geometric shapes.
+```java
+import draw.∗;
+import colors.∗;
+import geometry.∗;
 ```
