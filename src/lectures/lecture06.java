@@ -2,6 +2,7 @@ package lectures;
 
 import tester.Tester;
 
+
 interface IAT06 {
     int count();
     int countHelper();
@@ -9,6 +10,11 @@ interface IAT06 {
     int countFemaleAncHelper();
     boolean wellFormed();
     boolean wellFormedHelper(int yob);
+    IAT06 youngerIAT(IAT06 other);
+    IAT06 youngerIATHelper(IAT06 other, int otherYob);
+    IAT06 youngestParent();
+    IAT06 youngestGrandparent();
+    IAT06 youngestAncAtGen(int gen);
 }
 class Unknown06 implements IAT06 {
     Unknown06() { }
@@ -36,6 +42,31 @@ class Unknown06 implements IAT06 {
     public boolean wellFormedHelper(int yob) {
         return true;
     }
+
+    public IAT06 youngerIAT (IAT06 other) {
+        return other;
+    }
+
+    public IAT06 youngerIATHelper (IAT06 other, int otherYob) {
+        return other;
+    }
+
+    public IAT06 youngestParent(){
+        return new Unknown06();
+    }
+
+    public IAT06 youngestGrandparent(){
+        return new Unknown06();
+    }
+
+    public IAT06 youngestAncAtGen(int gen) {
+        if (gen == 0){
+            return this;
+        } else {
+            return new Unknown06();
+        }
+    }
+
 }
 class Person06 implements IAT06 {
     String name;
@@ -80,6 +111,34 @@ class Person06 implements IAT06 {
         return this.yob < childYob &&
                 this.mom.wellFormedHelper(this.yob) &&
                 this.dad.wellFormedHelper(this.yob);
+    }
+
+    public IAT06 youngerIAT (IAT06 other) {
+        return other.youngerIATHelper(this, this.yob);
+    }
+
+    public IAT06 youngerIATHelper (IAT06 other, int otherYob) {
+        if(this.yob > otherYob){
+            return this;
+        } else {
+            return other;
+        }
+    }
+
+    public IAT06 youngestParent() {
+        return this.mom.youngerIAT(this.dad);
+    }
+
+    public IAT06 youngestGrandparent(){
+        return this.mom.youngestParent().youngerIAT(this.dad.youngestParent());
+    }
+
+    public IAT06 youngestAncAtGen(int gen) {
+        if (gen == 0){
+            return this;
+        } else {
+            return this.mom.youngestAncAtGen(gen - 1).youngerIAT(this.dad.youngestAncAtGen(gen - 1));
+        }
     }
 }
 
@@ -134,4 +193,26 @@ class ExamplesIAT06 {
         return t.checkExpect(andrew.wellFormed(), true);
     }
 
+    boolean testIATYoungerIAT(Tester t){
+        return t.checkExpect(bree.youngerIAT(bill), bree) &&
+                t.checkExpect(cameron.youngerIAT(candace), candace);
+
+    }
+    boolean testIATYoungestAncAtGen(Tester t){
+        return t.checkExpect(andrew.youngestAncAtGen(0), andrew) &&
+                t.checkExpect(andrew.youngestAncAtGen(1), bree) &&
+                t.checkExpect(andrew.youngestAncAtGen(2), candace) &&
+                t.checkExpect(andrew.youngestAncAtGen(3), dixon) &&
+                t.checkExpect(andrew.youngestAncAtGen(4), eustace);
+    }
+
+    boolean testIATYoungestParent(Tester t){
+        return t.checkExpect(andrew.youngestParent(), bree) &&
+                t.checkExpect(bree.youngestParent(), cameron);
+    }
+
+    boolean testIATYoungestGrandparent(Tester t){
+        return t.checkExpect(andrew.youngestGrandparent(), candace) &&
+                t.checkExpect(bree.youngestGrandparent(), dixon);
+    }
 }
