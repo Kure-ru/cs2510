@@ -150,6 +150,16 @@ class CartPt {
 }
 ```
 
+### 12 Methods and Unions of Classes
+
+#### 12.1 Example: Plain Geometric Shapes
+
+A **wish list** is a checklist of the functions/methods still needed for making the program work.
+
+**Union data** combines multiple types (e.g `Dot`, `Square`, `Circle` all implementing `IShape`)
+
+Declaring method signatures in the interface enforces implementation in all subclasses.
+
 ### 14 Methods and Unions of Classes (Continued)
 #### 14.1 How Libraries Work, Part 1: Drawing Geometric Shapes
 Java provides a `Canva` class (via `draw` library) for rendering geometric shapes.
@@ -158,3 +168,14 @@ import draw.∗;
 import colors.∗;
 import geometry.∗;
 ```
+
+### 15 Methods and Classes with Mutual References
+
+#### 15.1 Example: Managing a Runner’s Logs
+
+Classes and methods can reference each other to form a structure where objects interact to solve problems.
+Mutual references are common in recursive data structures like logs, where each element refers to another of the same type.
+
+#### 15.4 Example: River Systems
+
+

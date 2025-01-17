@@ -142,21 +142,6 @@ class Person06 implements IAT06 {
     }
 }
 
-interface ILoString {
-
-}
-class ConsLoString implements ILoString {
-    String first;
-    ILoString rest;
-    ConsLoString(String first, ILoString rest) {
-        this.first = first;
-        this.rest = rest;
-    }
-}
-class MtLoString implements ILoString {
-    MtLoString() { }
-}
-
 
 class ExamplesIAT06 {
     IAT06 enid = new Person06("Enid", 1904, false, new Unknown06(), new Unknown06());
