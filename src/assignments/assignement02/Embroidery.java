@@ -25,13 +25,18 @@ package assignments.assignement02;
 import tester.Tester;
 
 interface IMotif {
+    int countMotifs();
+    double getDifficulty();
     double averageDifficulty();
     String embroideryInfo();
+
 }
 
 interface ILoMotif {
+    double totalDifficulty();
     double averageDifficulty();
     String getInfo();
+    int countMotifs();
 }
 
 class EmbroideryPiece {
@@ -43,6 +48,14 @@ class EmbroideryPiece {
         this.motif = motif;
     }
 
+    int countMotifs() {
+        return this.motif.countMotifs();
+    }
+
+    double totalDifficulty() {
+        return this.motif.getDifficulty();
+    }
+
     double averageDifficulty() {
         return this.motif.averageDifficulty();
     }
@@ -50,6 +63,7 @@ class EmbroideryPiece {
     String embroideryInfo(){
         return name + ": " + this.motif.embroideryInfo();
     }
+
 }
 
 class CrossStitchMotif implements IMotif {
@@ -61,6 +75,14 @@ class CrossStitchMotif implements IMotif {
         this.difficulty = difficulty;
     }
 
+    public int countMotifs() {
+        return 1;
+    }
+
+    public double getDifficulty() {
+        return this.difficulty;
+    }
+
     public double averageDifficulty (){
         return this.difficulty;
     }
@@ -68,6 +90,7 @@ class CrossStitchMotif implements IMotif {
     public String embroideryInfo(){
         return this.description + " (cross stitch)";
     }
+
 }
 
 class ChainStitchMotif implements IMotif {
@@ -79,6 +102,14 @@ class ChainStitchMotif implements IMotif {
         this.difficulty = difficulty;
     }
 
+    public int countMotifs() {
+        return 1;
+    }
+
+    public double getDifficulty(){
+        return this.difficulty;
+    }
+
     public double averageDifficulty (){
         return this.difficulty;
     }
@@ -86,6 +117,8 @@ class ChainStitchMotif implements IMotif {
     public String embroideryInfo(){
         return this.description + " (chain stitch)";
     }
+
+
 }
 
 class GroupMotif implements IMotif {
@@ -95,6 +128,14 @@ class GroupMotif implements IMotif {
     GroupMotif(String description, ConsLoMotif motif){
         this.description = description;
         this.motifs = motif;
+    }
+
+    public double getDifficulty() {
+        return this.motifs.totalDifficulty();
+    }
+
+    public int countMotifs() {
+        return this.motifs.countMotifs();
     }
 
     public double averageDifficulty (){
@@ -109,6 +150,14 @@ class GroupMotif implements IMotif {
 class MtLoMotif implements ILoMotif {
     MtLoMotif(){}
 
+    public int countMotifs() {
+        return 0;
+    }
+
+    public double totalDifficulty() {
+        return 0.0;
+    }
+
     public double averageDifficulty() {
         return 0.0;
     }
@@ -116,6 +165,8 @@ class MtLoMotif implements ILoMotif {
     public String getInfo(){
         return "";
     }
+
+
 }
 
 class ConsLoMotif implements ILoMotif {
@@ -127,8 +178,16 @@ class ConsLoMotif implements ILoMotif {
         this.rest = rest;
     }
 
-    public double averageDifficulty () {
-        return this.first.averageDifficulty();
+    public double totalDifficulty() {
+        return this.first.getDifficulty() + this.rest.totalDifficulty();
+    }
+
+    public int countMotifs() {
+        return this.first.countMotifs() + this.rest.countMotifs();
+    }
+
+    public double averageDifficulty() {
+        return this.totalDifficulty() / this.countMotifs();
     }
 
     public String getInfo(){
@@ -155,7 +214,7 @@ class ExamplesEmbroidery {
 
     boolean testEmbroideryAverageDifficulty(Tester t){
         return t.checkInexact(bird.averageDifficulty(), 4.5, 0.1) &&
-                t.checkInexact(flowers.averageDifficulty(), 4.9, 0.1) &&
+                t.checkInexact(flowers.averageDifficulty(), 4.3, 0.1) &&
                 t.checkInexact(nature.averageDifficulty(), 4.2, 0.1) &&
                 t.checkInexact(pillowCover.averageDifficulty(), 4.2, 0.1);
     }
@@ -163,4 +222,19 @@ class ExamplesEmbroidery {
     boolean testEmbroideryInfo(Tester t){
         return t.checkExpect(pillowCover.embroideryInfo(),
                 "Pillow Cover: bird (cross stitch), tree (chain stitch), rose (cross stitch), poppy (chain stitch), daisy (cross stitch)");
-    }}
+    }
+
+    boolean testEmbroideryCountMotifs(Tester t){
+        return t.checkExpect(empty.countMotifs(), 0) &&
+                t.checkExpect(flowers.countMotifs(), 3) &&
+                t.checkExpect(nature.countMotifs(), 5) &&
+                t.checkExpect(pillowCover.countMotifs(), 5);
+    }
+
+    boolean testEmbroideryTotalDifficulty(Tester t){
+        return t.checkInexact(empty.totalDifficulty(), 0.0, 0.1) &&
+                t.checkInexact(flowers.getDifficulty(), 13.75, 0.1) &&
+                t.checkInexact(nature.getDifficulty(), 20.45, 0.1) &&
+                t.checkInexact(pillowCover.totalDifficulty(), 20.45, 0.1);
+    }
+}
