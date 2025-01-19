@@ -160,6 +160,7 @@ class ILoBooksExample {
     ILoBook hpList4 = new ConsLoBook(hp1, hpList3);
     ILoBook emptyList = new MtLoBook();
     ILoBook sortedList = new ConsLoBook(hp1, new ConsLoBook(hp2, new ConsLoBook(hp3, new MtLoBook())));
+    ILoBook unsortedList = new ConsLoBook(hp2, new ConsLoBook(hp3, new ConsLoBook(hp1, new MtLoBook())));
 
     boolean testILoBookCount(Tester t) {
         return t.checkExpect(hpList3.count(), 3)
@@ -195,7 +196,6 @@ class ILoBooksExample {
     }
 
     boolean testILoBookSortByPrice(Tester t) {
-
         return t.checkExpect(hpList3.sortByPrice(), sortedList)
                 && t.checkExpect(emptyList.sortByPrice(), new MtLoBook())
                 && t.checkExpect(hpList1.sortByPrice(), hpList1);
@@ -208,7 +208,6 @@ class ILoBooksExample {
     }
 
     boolean testILoBookSortByTitle(Tester t) {
-        ILoBook unsortedList = new ConsLoBook(hp2, new ConsLoBook(hp3, new ConsLoBook(hp1, new MtLoBook())));
         return t.checkExpect(hpList3.sortByTitle(), hpList3)
                 && t.checkExpect(emptyList.sortByTitle(), new MtLoBook())
                 && t.checkExpect(unsortedList.sortByTitle(), sortedList);
