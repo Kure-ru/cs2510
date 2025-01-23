@@ -1,5 +1,5 @@
 # How to Design Classes
-## I The Varieties of Data
+## I. The Varieties of Data
 ### 1 Primitive Forms of Data
 
 `int` 
@@ -114,7 +114,7 @@ class Entry {
 }
 ```
 
-## II Functional Methods 
+## II. Functional Methods 
 
 ### 10 Methods for Classes
 #### 10.4 Conditional Computations
@@ -175,7 +175,66 @@ import geometry.∗;
 
 Classes and methods can reference each other to form a structure where objects interact to solve problems.
 Mutual references are common in recursive data structures like logs, where each element refers to another of the same type.
+[see exercises](./ex_15.1~15.3.java)
 
 #### 15.4 Example: River Systems
+[see exercise](./ex_15.8.java)
 
+## III. Abstracting with Classes
 
+### 18 Similarities in Classes
+
+#### 18.1 Common Fields, Superclasses
+
+A **superclass** is introduced to capture commonalities between classes, which helps to reduce code duplication. 
+> e.g. The superclass `Shape` **EXTENDS** `Dot`, `Square` and `Circle`.
+
+Subclasses **inherit** fields, methods and obligations from the superclass. 
+
+```java
+// The parent class or superclass
+class Shape implements IShape {
+    CartPt loc;
+    Shape(CartPt loc) {
+        this.loc = loc;
+    }
+}
+
+// Square is a subclass inherits from Shape
+class Square extends Shape {
+    int size;
+    Square(CartPt loc,int size) {
+        // super calls the constructor of a superclass
+        super(loc);
+        this.size = size;
+    }
+}
+```
+
+#### 18.2 Abstract Classes, Abstract Method
+
+**Abstract methods** resolve the issue where a method (e.g., `area`) must be **implemented differently** in each subclass but still needs to be specified in a shared parent class.
+
+Subclasses (like `Dot`, `Square`, and `Circle`) are required to **implement all abstract methods** from the abstract parent class (`AShape`) to become **concrete classes**.
+
+[example code](../src/lectures/lecture09.java)
+
+#### 18.3 Lifting Methods, Inheriting Methods
+
+When multiple subclasses of an abstract class define the exact same method, you should **lift** the method into the abstract class to eliminate redundancy.
+Process:
+1. Move the common method into the abstract class.
+2. Remove the method definitions from all subclasses.
+3. Run tests to ensure correctness.
+
+When lifting a method, if a subclass needs different behavior, you can **override the method** in that specific subclass.
+
+[example code](../src/lectures/lecture09.java)
+
+### 19 Designing Class Hierarchies with Methods
+
+#### 19.4 Abstracting through the Creation of Unions
+
+How to create a union retroactively:
+1. **Comparison**: Examine commonalities in fields, methods, purpose.
+2. **Abstraction**: If similarities are confirmed, create a common interface to define shared methods with compatible signatures
