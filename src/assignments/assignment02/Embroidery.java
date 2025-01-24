@@ -1,4 +1,4 @@
-package assignments.assignement02;
+package assignments.assignment02;
 
 /*
 ;;An EmbroideryPiece is a (make-embroidery-piece String Motif)

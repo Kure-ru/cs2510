@@ -238,3 +238,4 @@ When lifting a method, if a subclass needs different behavior, you can **overrid
 How to create a union retroactively:
 1. **Comparison**: Examine commonalities in fields, methods, purpose.
 2. **Abstraction**: If similarities are confirmed, create a common interface to define shared methods with compatible signatures
+3. **Testing**: Re-run tests for the original classes to ensure they function correctly.

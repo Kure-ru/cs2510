@@ -1,4 +1,4 @@
-package assignments.assignement01;
+package assignments.assignment01;
 
 interface IHousing {
 

@@ -1,4 +1,4 @@
-package assignments.assignement02;
+package assignments.assignment02;
 
 import tester.Tester;
 
