@@ -7,6 +7,7 @@ interface ILoRunner14 {
     Runner getFirst();
     Runner findMin(IRunnerComparator comp);
     Runner findMinHelp(IRunnerComparator comp, Runner acc);
+    Runner findMax(IRunnerComparator comp);
 }
 
 class MTLoRunner14 implements ILoRunner14 {
@@ -35,6 +36,10 @@ class MTLoRunner14 implements ILoRunner14 {
 
     public Runner findMinHelp(IRunnerComparator comp, Runner acc) {
         return acc;
+    }
+
+    public Runner findMax(IRunnerComparator comp) {
+        throw new RuntimeException("No maximum runner available in this list!");
     }
 }
 
@@ -78,6 +83,10 @@ class ConsLoRunner14 implements ILoRunner14 {
         } else {
             return this.rest.findMinHelp(comp, this.first);
         }
+    }
+
+    public Runner findMax(IRunnerComparator comp) {
+        return findMin(new ReverseComparator(comp));
     }
 }
 
