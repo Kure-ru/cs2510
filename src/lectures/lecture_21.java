@@ -4,7 +4,7 @@ import tester.Tester;
 
 import java.util.ArrayList;
 
-interface IFunc<T, U> {
+interface IFunc21<T, U> {
     U apply(T args);
 }
 
@@ -23,7 +23,7 @@ class ArrayUtils {
     //        return this.mapHelp(arr, func, 0, result);
     //    }
 
-    <T, U> ArrayList<U> map(ArrayList<T> arr, IFunc<T, U> func) {
+    <T, U> ArrayList<U> map(ArrayList<T> arr, IFunc21<T, U> func) {
         ArrayList<U> result = new ArrayList<U>();
         for (T t : arr) {
             result.add(func.apply(t));
