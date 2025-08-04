@@ -1,4 +1,5 @@
 import tester.Tester;
+
 import java.util.ArrayList;
 
 interface Predicate<T> {
@@ -28,11 +29,11 @@ class ArrayUtils {
     }
 
     <T> void removeFailing(ArrayList<T> arr, Predicate<T> pred) {
-        customRemove(arr, pred,true);
+        customRemove(arr, pred, true);
     }
 
     <T> void removePassing(ArrayList<T> arr, Predicate<T> pred) {
-        customRemove(arr, pred,false);
+        customRemove(arr, pred, false);
     }
 
     private <T> void customRemove(ArrayList<T> arr, Predicate<T> pred, boolean removeFailing) {
@@ -46,7 +47,7 @@ class ArrayUtils {
     }
 }
 
-class ExampleClass {
+class ArrayListExamples {
 
     ArrayUtils utils = new ArrayUtils();
     ArrayList<Integer> numbers;
