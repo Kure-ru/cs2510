@@ -56,7 +56,7 @@ class ArrayUtils23 {
     }
 
     void capitalizeTitles_ok(ArrayList<Book23> books) {
-        for (int i = 0; i < books.size(; i = i + 1) {
+        for (int i = 0; i < books.size(); i = i + 1) {
             Book23 oldB = books.get(i);
             Book23 newB = new Book23(oldB.title.toUpperCase(), oldB.author);
             books.set(i, newB);
