@@ -31,17 +31,17 @@ class ArrayListIterator<T> implements Iterator<T> {
     }
 }
 
-interface IList<T> extends Iterable<T> {
+interface IList25<T> extends Iterable<T> {
     boolean isCons();
 
-    ConsList<T> asCons();
+    ConsList25<T> asCons();
 }
 
-class ConsList<T> implements IList<T> {
+class ConsList25<T> implements IList25<T> {
     T first;
-    IList<T> rest;
+    IList25<T> rest;
 
-    ConsList(T first, IList<T> rest) {
+    ConsList25(T first, IList25<T> rest) {
         this.first = first;
         this.rest = rest;
     }
@@ -50,35 +50,35 @@ class ConsList<T> implements IList<T> {
         return true;
     }
 
-    public ConsList<T> asCons() {
+    public ConsList25<T> asCons() {
         return this;
     }
 
     public Iterator<T> iterator() {
-        return new IListIterator<T>(this);
+        return new IList25Iterator<T>(this);
     }
 }
 
-class MtList<T> implements IList<T> {
+class MtList25<T> implements IList25<T> {
 
     public boolean isCons() {
         return false;
     }
 
-    public ConsList<T> asCons() {
+    public ConsList25<T> asCons() {
         throw new UnsupportedOperationException("Empty list has no Cons");
     }
 
     public Iterator<T> iterator() {
-        return new IListIterator<T>(this);
+        return new IList25Iterator<T>(this);
     }
 }
 
 
-class IListIterator<T> implements Iterator<T> {
-    IList<T> items;
+class IList25Iterator<T> implements Iterator<T> {
+    IList25<T> items;
 
-    IListIterator(IList<T> items) {
+    IList25Iterator(IList25<T> items) {
         this.items = items;
     }
 
@@ -90,7 +90,7 @@ class IListIterator<T> implements Iterator<T> {
         if (!this.hasNext()) {
             throw new NoSuchElementException("there are no nore items!");
         }
-        ConsList<T> itemsAsCons = this.items.asCons();
+        ConsList25<T> itemsAsCons = this.items.asCons();
         T answer = itemsAsCons.first;
         this.items = itemsAsCons.rest;
         return answer;
